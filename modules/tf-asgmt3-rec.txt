@@ -1,0 +1,719 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20221213181816
+Username: TIGERANALYTICS\swathi.vijai
+RunAs User: TIGERANALYTICS\swathi.vijai
+Configuration Name: 
+Machine: TIGER02570 (Microsoft Windows NT 10.0.19044.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 36348
+PSVersion: 5.1.19041.1682
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.1682
+BuildVersion: 10.0.19041.1682
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is D:\tf-asgmt3\tf-asgmt3-rec.txt
+PS C:\Users\swathi.vijai> cd  D:\tf-asgmt3
+PS D:\tf-asgmt3> ls
+
+
+    Directory: D:\tf-asgmt3
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        13-12-2022     04:54                .terraform
+-a----        13-12-2022     14:23           2157 .terraform.lock.hcl
+-a----        13-12-2022     18:13            227 aks-administrators-azure-ad.tf
+-a----        13-12-2022     18:13           2046 main.tf
+-a----        13-12-2022     05:03            531 outputs.tf
+-a----        13-12-2022     18:09            268 providers.tf
+-a----        13-12-2022     08:10           3326 sshkey
+-a----        13-12-2022     08:10            745 sshkey.pub
+-a----        13-12-2022     18:12           3200 terraform.tfstate
+-a----        13-12-2022     18:12           3888 terraform.tfstate.backup
+-a----        13-12-2022     17:37            104 terraform.tfvars
+-a----        13-12-2022     18:18              0 tf-asgmt3-rec.txt
+-a----        13-12-2022     17:38           1040 variables.tf
+
+
+PS D:\tf-asgmt3> terraform validate
+Success! The configuration is valid.
+PS D:\tf-asgmt3> terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/azuread from the dependency lock file
+- Reusing previous version of hashicorp/azurerm from the dependency lock file
+- Using previously-installed hashicorp/azuread v2.31.0
+- Using previously-installed hashicorp/azurerm v3.0.0
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+PS D:\tf-asgmt3> terraform plan
+data.azurerm_kubernetes_service_versions.current: Reading...
+azurerm_log_analytics_workspace.insights: Refreshing state... [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.OperationalInsights/workspace
+s/log-swathi1179]
+data.azurerm_kubernetes_service_versions.current: Read complete after 2s [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/providers/Microsoft.ContainerService/locations/eastus/orchestra
+tors]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_kubernetes_cluster.aks_cluster will be created
+  + resource "azurerm_kubernetes_cluster" "aks_cluster" {
+      + azure_policy_enabled                = true
+      + dns_prefix                          = "swathi1179"
+      + fqdn                                = (known after apply)
+      + http_application_routing_zone_name  = (known after apply)
+      + id                                  = (known after apply)
+      + kube_admin_config                   = (sensitive value)
+      + kube_admin_config_raw               = (sensitive value)
+      + kube_config                         = (sensitive value)
+      + kube_config_raw                     = (sensitive value)
+      + kubernetes_version                  = "1.24.6"
+      + location                            = "eastus"
+      + name                                = "swathi1179"
+      + node_resource_group                 = (known after apply)
+      + portal_fqdn                         = (known after apply)
+      + private_cluster_public_fqdn_enabled = false
+      + private_dns_zone_id                 = (known after apply)
+      + private_fqdn                        = (known after apply)
+      + public_network_access_enabled       = true
+      + resource_group_name                 = "devops-rg"
+      + role_based_access_control_enabled   = true
+      + sku_tier                            = "Free"
+      + tags                                = {
+          + "created_by"  = "swathi.vijai@tigeranalytics.com"
+          + "created_for" = "training"
+        }
+
+      + auto_scaler_profile {
+          + balance_similar_node_groups      = (known after apply)
+          + empty_bulk_delete_max            = (known after apply)
+          + expander                         = (known after apply)
+          + max_graceful_termination_sec     = (known after apply)
+          + max_node_provisioning_time       = (known after apply)
+          + max_unready_nodes                = (known after apply)
+          + max_unready_percentage           = (known after apply)
+          + new_pod_scale_up_delay           = (known after apply)
+          + scale_down_delay_after_add       = (known after apply)
+          + scale_down_delay_after_delete    = (known after apply)
+          + scale_down_delay_after_failure   = (known after apply)
+          + scale_down_unneeded              = (known after apply)
+          + scale_down_unready               = (known after apply)
+          + scale_down_utilization_threshold = (known after apply)
+          + scan_interval                    = (known after apply)
+          + skip_nodes_with_local_storage    = (known after apply)
+          + skip_nodes_with_system_pods      = (known after apply)
+        }
+
+      + default_node_pool {
+          + enable_auto_scaling  = true
+          + kubelet_disk_type    = (known after apply)
+          + max_count            = 3
+          + max_pods             = (known after apply)
+          + min_count            = 1
+          + name                 = "systempool"
+          + node_count           = 2
+          + node_labels          = {
+              + "app"           = "system-apps"
+              + "environment"   = "dev"
+              + "nodepool-type" = "system"
+              + "nodepoolos"    = "linux"
+            }
+          + orchestrator_version = "1.24.6"
+          + os_disk_size_gb      = 30
+          + os_disk_type         = "Managed"
+          + os_sku               = (known after apply)
+          + tags                 = {
+              + "app"           = "system-apps"
+              + "environment"   = "dev"
+              + "nodepool-type" = "system"
+              + "nodepoolos"    = "linux"
+            }
+          + type                 = "VirtualMachineScaleSets"
+          + ultra_ssd_enabled    = false
+          + vm_size              = "Standard_DS2_v2"
+        }
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + kubelet_identity {
+          + client_id                 = (known after apply)
+          + object_id                 = (known after apply)
+          + user_assigned_identity_id = (known after apply)
+        }
+
+      + linux_profile {
+          + admin_username = "ubuntu"
+
+          + ssh_key {
+              + key_data = <<-EOT
+                    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCb6LCx1XXVdhCzYcwwP/jsonVZUnHq/W7SG9Sy/RP7CLZrGO4717lqfdi9kNhj4g589neJTzYvPsXRDrRpAyrD4UgFEa8Ww4if2L75wntpHXHpqVjJjAs8gNDZE3RagJbixTKu
+wC9ZOFXFLKrFLNVY31XZW8KrIIu5WJdJNQls7yS2D4+HTX7/yQCPt/kxTn8Nn+6qnFYToNiby+9e9fQAj5CkiGej+5eHNVA+YsqbNHmwt0rLjH1cIXZmHdXQUD+t9vwhH9oOqIYBvsT8y0poDfG7dZfqif8DPwY07ppc5A8IuIbvWuxtKxUmW1+KASIdJUvP
+WJbvXaKSE8OiRQKvoL8CSz+4OmlbXCe3+5PLMTW/VAP5XU9CiXhgHl7o8TpePuk6o/PpZcD/oZjSgfV56cSlrY3UEKVpI4V+LEDT8CYWIz/zB/DXokxT2NUTDTOWEtWWe4hpLC2gavmElJJ1IzzyuwEOcezZegQseN9O6Rk+1PXsyYt+2C4bkCGgxqvhy8/v
+axwBmUok3ipv/FIjERZ1ZEy5kwDJrTd7VCsTPoENVwpsheizm88+XKgbGNPU+txUkY1iE4ndqKdPeinAoy7PJj194zk17oqoR2kJg6Q7skr+S7jj7kOmL44InO1hrVyhzbRqxIBtL3VgeXfBFk/GKuZEpO/mRnt8+cMdtQ== azureuser@myserver
+                EOT
+            }
+        }
+
+      + network_profile {
+          + dns_service_ip     = (known after apply)
+          + docker_bridge_cidr = (known after apply)
+          + load_balancer_sku  = "standard"
+          + network_mode       = (known after apply)
+          + network_plugin     = "azure"
+          + network_policy     = (known after apply)
+          + outbound_type      = "loadBalancer"
+          + pod_cidr           = (known after apply)
+          + service_cidr       = (known after apply)
+
+          + load_balancer_profile {
+              + effective_outbound_ips    = (known after apply)
+              + idle_timeout_in_minutes   = (known after apply)
+              + managed_outbound_ip_count = (known after apply)
+              + outbound_ip_address_ids   = (known after apply)
+              + outbound_ip_prefix_ids    = (known after apply)
+              + outbound_ports_allocated  = (known after apply)
+            }
+
+          + nat_gateway_profile {
+              + effective_outbound_ips    = (known after apply)
+              + idle_timeout_in_minutes   = (known after apply)
+              + managed_outbound_ip_count = (known after apply)
+            }
+        }
+
+      + oms_agent {
+          + log_analytics_workspace_id = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.OperationalInsights/workspaces/log-swathi1179"
+          + oms_agent_identity         = (known after apply)
+        }
+
+      + windows_profile {
+          + admin_password = (sensitive value)
+          + admin_username = (known after apply)
+          + license        = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + aks_cluster_id = (known after apply)
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+PS D:\tf-asgmt3> terraform apply
+data.azurerm_kubernetes_service_versions.current: Reading...
+azurerm_log_analytics_workspace.insights: Refreshing state... [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.OperationalInsights/workspace
+s/log-swathi1179]
+data.azurerm_kubernetes_service_versions.current: Read complete after 2s [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/providers/Microsoft.ContainerService/locations/eastus/orchestra
+tors]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_kubernetes_cluster.aks_cluster will be created
+  + resource "azurerm_kubernetes_cluster" "aks_cluster" {
+      + azure_policy_enabled                = true
+      + dns_prefix                          = "swathi1179"
+      + fqdn                                = (known after apply)
+      + http_application_routing_zone_name  = (known after apply)
+      + id                                  = (known after apply)
+      + kube_admin_config                   = (sensitive value)
+      + kube_admin_config_raw               = (sensitive value)
+      + kube_config                         = (sensitive value)
+      + kube_config_raw                     = (sensitive value)
+      + kubernetes_version                  = "1.24.6"
+      + location                            = "eastus"
+      + name                                = "swathi1179"
+      + node_resource_group                 = (known after apply)
+      + portal_fqdn                         = (known after apply)
+      + private_cluster_public_fqdn_enabled = false
+      + private_dns_zone_id                 = (known after apply)
+      + private_fqdn                        = (known after apply)
+      + public_network_access_enabled       = true
+      + resource_group_name                 = "devops-rg"
+      + role_based_access_control_enabled   = true
+      + sku_tier                            = "Free"
+      + tags                                = {
+          + "created_by"  = "swathi.vijai@tigeranalytics.com"
+          + "created_for" = "training"
+        }
+
+      + auto_scaler_profile {
+          + balance_similar_node_groups      = (known after apply)
+          + empty_bulk_delete_max            = (known after apply)
+          + expander                         = (known after apply)
+          + max_graceful_termination_sec     = (known after apply)
+          + max_node_provisioning_time       = (known after apply)
+          + max_unready_nodes                = (known after apply)
+          + max_unready_percentage           = (known after apply)
+          + new_pod_scale_up_delay           = (known after apply)
+          + scale_down_delay_after_add       = (known after apply)
+          + scale_down_delay_after_delete    = (known after apply)
+          + scale_down_delay_after_failure   = (known after apply)
+          + scale_down_unneeded              = (known after apply)
+          + scale_down_unready               = (known after apply)
+          + scale_down_utilization_threshold = (known after apply)
+          + scan_interval                    = (known after apply)
+          + skip_nodes_with_local_storage    = (known after apply)
+          + skip_nodes_with_system_pods      = (known after apply)
+        }
+
+      + default_node_pool {
+          + enable_auto_scaling  = true
+          + kubelet_disk_type    = (known after apply)
+          + max_count            = 3
+          + max_pods             = (known after apply)
+          + min_count            = 1
+          + name                 = "systempool"
+          + node_count           = 2
+          + node_labels          = {
+              + "app"           = "system-apps"
+              + "environment"   = "dev"
+              + "nodepool-type" = "system"
+              + "nodepoolos"    = "linux"
+            }
+          + orchestrator_version = "1.24.6"
+          + os_disk_size_gb      = 30
+          + os_disk_type         = "Managed"
+          + os_sku               = (known after apply)
+          + tags                 = {
+              + "app"           = "system-apps"
+              + "environment"   = "dev"
+              + "nodepool-type" = "system"
+              + "nodepoolos"    = "linux"
+            }
+          + type                 = "VirtualMachineScaleSets"
+          + ultra_ssd_enabled    = false
+          + vm_size              = "Standard_DS2_v2"
+        }
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + kubelet_identity {
+          + client_id                 = (known after apply)
+          + object_id                 = (known after apply)
+          + user_assigned_identity_id = (known after apply)
+        }
+
+      + linux_profile {
+          + admin_username = "ubuntu"
+
+          + ssh_key {
+              + key_data = <<-EOT
+                    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCb6LCx1XXVdhCzYcwwP/jsonVZUnHq/W7SG9Sy/RP7CLZrGO4717lqfdi9kNhj4g589neJTzYvPsXRDrRpAyrD4UgFEa8Ww4if2L75wntpHXHpqVjJjAs8gNDZE3RagJbixTKu
+wC9ZOFXFLKrFLNVY31XZW8KrIIu5WJdJNQls7yS2D4+HTX7/yQCPt/kxTn8Nn+6qnFYToNiby+9e9fQAj5CkiGej+5eHNVA+YsqbNHmwt0rLjH1cIXZmHdXQUD+t9vwhH9oOqIYBvsT8y0poDfG7dZfqif8DPwY07ppc5A8IuIbvWuxtKxUmW1+KASIdJUvP
+WJbvXaKSE8OiRQKvoL8CSz+4OmlbXCe3+5PLMTW/VAP5XU9CiXhgHl7o8TpePuk6o/PpZcD/oZjSgfV56cSlrY3UEKVpI4V+LEDT8CYWIz/zB/DXokxT2NUTDTOWEtWWe4hpLC2gavmElJJ1IzzyuwEOcezZegQseN9O6Rk+1PXsyYt+2C4bkCGgxqvhy8/v
+axwBmUok3ipv/FIjERZ1ZEy5kwDJrTd7VCsTPoENVwpsheizm88+XKgbGNPU+txUkY1iE4ndqKdPeinAoy7PJj194zk17oqoR2kJg6Q7skr+S7jj7kOmL44InO1hrVyhzbRqxIBtL3VgeXfBFk/GKuZEpO/mRnt8+cMdtQ== azureuser@myserver
+                EOT
+            }
+        }
+
+      + network_profile {
+          + dns_service_ip     = (known after apply)
+          + docker_bridge_cidr = (known after apply)
+          + load_balancer_sku  = "standard"
+          + network_mode       = (known after apply)
+          + network_plugin     = "azure"
+          + network_policy     = (known after apply)
+          + outbound_type      = "loadBalancer"
+          + pod_cidr           = (known after apply)
+          + service_cidr       = (known after apply)
+
+          + load_balancer_profile {
+              + effective_outbound_ips    = (known after apply)
+              + idle_timeout_in_minutes   = (known after apply)
+              + managed_outbound_ip_count = (known after apply)
+              + outbound_ip_address_ids   = (known after apply)
+              + outbound_ip_prefix_ids    = (known after apply)
+              + outbound_ports_allocated  = (known after apply)
+            }
+
+          + nat_gateway_profile {
+              + effective_outbound_ips    = (known after apply)
+              + idle_timeout_in_minutes   = (known after apply)
+              + managed_outbound_ip_count = (known after apply)
+            }
+        }
+
+      + oms_agent {
+          + log_analytics_workspace_id = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.OperationalInsights/workspaces/log-swathi1179"
+          + oms_agent_identity         = (known after apply)
+        }
+
+      + windows_profile {
+          + admin_password = (sensitive value)
+          + admin_username = (known after apply)
+          + license        = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + aks_cluster_id = (known after apply)
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+azurerm_kubernetes_cluster.aks_cluster: Creating...
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [1m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [1m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [1m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [1m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [1m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [1m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [2m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [2m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [2m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [2m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [2m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [2m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [3m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [3m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [3m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [3m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [3m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [3m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [4m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [4m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [4m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still creating... [4m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Creation complete after 4m30s [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.ContainerService/mana
+gedClusters/swathi1179]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+aks_cluster_id = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.ContainerService/managedClusters/swathi1179"
+aks_cluster_kubernetes_version = "1.24.6"
+aks_cluster_name = "swathi1179"
+latest_version = "1.24.6"
+versions = tolist([
+  "1.22.11",
+  "1.22.15",
+  "1.23.8",
+  "1.23.12",
+  "1.24.3",
+  "1.24.6",
+])
+PS D:\tf-asgmt3> terraform destroy
+data.azurerm_kubernetes_service_versions.current: Reading...
+azurerm_log_analytics_workspace.insights: Refreshing state... [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.OperationalInsights/workspace
+s/log-swathi1179]
+data.azurerm_kubernetes_service_versions.current: Read complete after 1s [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/providers/Microsoft.ContainerService/locations/eastus/orchestra
+tors]
+azurerm_kubernetes_cluster.aks_cluster: Refreshing state... [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.ContainerService/managedCluster
+s/swathi1179]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # azurerm_kubernetes_cluster.aks_cluster will be destroyed
+  - resource "azurerm_kubernetes_cluster" "aks_cluster" {
+      - api_server_authorized_ip_ranges     = [] -> null
+      - azure_policy_enabled                = true -> null
+      - dns_prefix                          = "swathi1179" -> null
+      - enable_pod_security_policy          = false -> null
+      - fqdn                                = "swathi1179-e7ef4082.hcp.eastus.azmk8s.io" -> null
+      - http_application_routing_enabled    = false -> null
+      - id                                  = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.ContainerService/managedClusters/swathi1179" ->
+null
+      - kube_admin_config                   = (sensitive value)
+      - kube_config                         = (sensitive value)
+      - kube_config_raw                     = (sensitive value)
+      - kubernetes_version                  = "1.24.6" -> null
+      - local_account_disabled              = false -> null
+      - location                            = "eastus" -> null
+      - name                                = "swathi1179" -> null
+      - node_resource_group                 = "MC_devops-rg_swathi1179_eastus" -> null
+      - open_service_mesh_enabled           = false -> null
+      - portal_fqdn                         = "swathi1179-e7ef4082.portal.hcp.eastus.azmk8s.io" -> null
+      - private_cluster_enabled             = false -> null
+      - private_cluster_public_fqdn_enabled = false -> null
+      - public_network_access_enabled       = true -> null
+      - resource_group_name                 = "devops-rg" -> null
+      - role_based_access_control_enabled   = true -> null
+      - sku_tier                            = "Free" -> null
+      - tags                                = {
+          - "created_by"  = "swathi.vijai@tigeranalytics.com"
+          - "created_for" = "training"
+        } -> null
+
+      - auto_scaler_profile {
+          - balance_similar_node_groups      = false -> null
+          - empty_bulk_delete_max            = "10" -> null
+          - expander                         = "random" -> null
+          - max_graceful_termination_sec     = "600" -> null
+          - max_node_provisioning_time       = "15m" -> null
+          - max_unready_nodes                = 3 -> null
+          - max_unready_percentage           = 45 -> null
+          - new_pod_scale_up_delay           = "0s" -> null
+          - scale_down_delay_after_add       = "10m" -> null
+          - scale_down_delay_after_delete    = "10s" -> null
+          - scale_down_delay_after_failure   = "3m" -> null
+          - scale_down_unneeded              = "10m" -> null
+          - scale_down_unready               = "20m" -> null
+          - scale_down_utilization_threshold = "0.5" -> null
+          - scan_interval                    = "10s" -> null
+          - skip_nodes_with_local_storage    = false -> null
+          - skip_nodes_with_system_pods      = true -> null
+        }
+
+      - default_node_pool {
+          - enable_auto_scaling          = true -> null
+          - enable_host_encryption       = false -> null
+          - enable_node_public_ip        = false -> null
+          - fips_enabled                 = false -> null
+          - kubelet_disk_type            = "OS" -> null
+          - max_count                    = 3 -> null
+          - max_pods                     = 30 -> null
+          - min_count                    = 1 -> null
+          - name                         = "systempool" -> null
+          - node_count                   = 2 -> null
+          - node_labels                  = {
+              - "app"           = "system-apps"
+              - "environment"   = "dev"
+              - "nodepool-type" = "system"
+              - "nodepoolos"    = "linux"
+            } -> null
+          - node_taints                  = [] -> null
+          - only_critical_addons_enabled = false -> null
+          - orchestrator_version         = "1.24.6" -> null
+          - os_disk_size_gb              = 30 -> null
+          - os_disk_type                 = "Managed" -> null
+          - os_sku                       = "Ubuntu" -> null
+          - tags                         = {
+              - "app"           = "system-apps"
+              - "environment"   = "dev"
+              - "nodepool-type" = "system"
+              - "nodepoolos"    = "linux"
+            } -> null
+          - type                         = "VirtualMachineScaleSets" -> null
+          - ultra_ssd_enabled            = false -> null
+          - vm_size                      = "Standard_DS2_v2" -> null
+          - zones                        = [] -> null
+        }
+
+      - identity {
+          - identity_ids = [] -> null
+          - principal_id = "0757636d-e1fc-4414-a30a-f74c5ea72dca" -> null
+          - tenant_id    = "e714ef31-faab-41d2-9f1e-e6df4af16ab8" -> null
+          - type         = "SystemAssigned" -> null
+        }
+
+      - kubelet_identity {
+          - client_id                 = "c2647a47-d4a6-4f91-ac15-324efb849be9" -> null
+          - object_id                 = "9ff8c0c6-e02b-4dfd-8514-ab352515ff0e" -> null
+          - user_assigned_identity_id = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/MC_devops-rg_swathi1179_eastus/providers/Microsoft.ManagedIdentity/userAssignedIdent
+ities/swathi1179-agentpool" -> null
+        }
+
+      - linux_profile {
+          - admin_username = "ubuntu" -> null
+
+          - ssh_key {
+              - key_data = <<-EOT
+                    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCb6LCx1XXVdhCzYcwwP/jsonVZUnHq/W7SG9Sy/RP7CLZrGO4717lqfdi9kNhj4g589neJTzYvPsXRDrRpAyrD4UgFEa8Ww4if2L75wntpHXHpqVjJjAs8gNDZE3RagJbixTKu
+wC9ZOFXFLKrFLNVY31XZW8KrIIu5WJdJNQls7yS2D4+HTX7/yQCPt/kxTn8Nn+6qnFYToNiby+9e9fQAj5CkiGej+5eHNVA+YsqbNHmwt0rLjH1cIXZmHdXQUD+t9vwhH9oOqIYBvsT8y0poDfG7dZfqif8DPwY07ppc5A8IuIbvWuxtKxUmW1+KASIdJUvP
+WJbvXaKSE8OiRQKvoL8CSz+4OmlbXCe3+5PLMTW/VAP5XU9CiXhgHl7o8TpePuk6o/PpZcD/oZjSgfV56cSlrY3UEKVpI4V+LEDT8CYWIz/zB/DXokxT2NUTDTOWEtWWe4hpLC2gavmElJJ1IzzyuwEOcezZegQseN9O6Rk+1PXsyYt+2C4bkCGgxqvhy8/v
+axwBmUok3ipv/FIjERZ1ZEy5kwDJrTd7VCsTPoENVwpsheizm88+XKgbGNPU+txUkY1iE4ndqKdPeinAoy7PJj194zk17oqoR2kJg6Q7skr+S7jj7kOmL44InO1hrVyhzbRqxIBtL3VgeXfBFk/GKuZEpO/mRnt8+cMdtQ== azureuser@myserver
+                EOT -> null
+            }
+        }
+
+      - network_profile {
+          - dns_service_ip     = "10.0.0.10" -> null
+          - docker_bridge_cidr = "172.17.0.1/16" -> null
+          - load_balancer_sku  = "standard" -> null
+          - network_plugin     = "azure" -> null
+          - outbound_type      = "loadBalancer" -> null
+          - service_cidr       = "10.0.0.0/16" -> null
+
+          - load_balancer_profile {
+              - effective_outbound_ips    = [
+                  - "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/MC_devops-rg_swathi1179_eastus/providers/Microsoft.Network/publicIPAddresses/634ac53c-81ad-4274-aeb2-703
+81667a9b9",
+                ] -> null
+              - idle_timeout_in_minutes   = 0 -> null
+              - managed_outbound_ip_count = 1 -> null
+              - outbound_ip_address_ids   = [] -> null
+              - outbound_ip_prefix_ids    = [] -> null
+              - outbound_ports_allocated  = 0 -> null
+            }
+        }
+
+      - oms_agent {
+          - log_analytics_workspace_id = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.OperationalInsights/workspaces/log-swathi1179" -> nul
+l
+          - oms_agent_identity         = [
+              - {
+                  - client_id                 = "e9d56e84-08fb-4820-b8c2-786ff98300d5"
+                  - object_id                 = "0fa6e31d-7b2d-4d10-b164-1e41ee1e5b3d"
+                  - user_assigned_identity_id = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourcegroups/MC_devops-rg_swathi1179_eastus/providers/Microsoft.ManagedIdentity/userAssig
+nedIdentities/omsagent-swathi1179"
+                },
+            ] -> null
+        }
+
+      - windows_profile {
+          - admin_username = "azureuser" -> null
+        }
+    }
+
+  # azurerm_log_analytics_workspace.insights will be destroyed
+  - resource "azurerm_log_analytics_workspace" "insights" {
+      - daily_quota_gb             = -1 -> null
+      - id                         = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.OperationalInsights/workspaces/log-swathi1179" -> null
+      - internet_ingestion_enabled = true -> null
+      - internet_query_enabled     = true -> null
+      - location                   = "eastus" -> null
+      - name                       = "log-swathi1179" -> null
+      - primary_shared_key         = (sensitive value)
+      - resource_group_name        = "devops-rg" -> null
+      - retention_in_days          = 30 -> null
+      - secondary_shared_key       = (sensitive value)
+      - sku                        = "PerGB2018" -> null
+      - tags                       = {} -> null
+      - workspace_id               = "887d36e4-fbb7-4efa-b745-362ce702501c" -> null
+    }
+
+Plan: 0 to add, 0 to change, 2 to destroy.
+
+Changes to Outputs:
+  - aks_cluster_id                 = "/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.ContainerService/managedClusters/swathi1179" -> null
+  - aks_cluster_kubernetes_version = "1.24.6" -> null
+  - aks_cluster_name               = "swathi1179" -> null
+  - latest_version                 = "1.24.6" -> null
+  - versions                       = [
+      - "1.22.11",
+      - "1.22.15",
+      - "1.23.8",
+      - "1.23.12",
+      - "1.24.3",
+      - "1.24.6",
+    ] -> null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+azurerm_kubernetes_cluster.aks_cluster: Destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.ContainerService/managedClusters/swat
+hi1179]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 1m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 1m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 1m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 1m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 1m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 1m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 2m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 2m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 2m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 2m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 2m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 2m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 3m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 3m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 3m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 3m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 3m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 3m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 4m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 4m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 4m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 4m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 4m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 4m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 5m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 5m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 5m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 5m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 5m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 5m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 6m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 6m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 6m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 6m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 6m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 6m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 7m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 7m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 7m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 7m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 7m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 7m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 8m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 8m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 8m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 8m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 8m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 8m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 9m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 9m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 9m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 9m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 9m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 9m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 10m0s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 10m10s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 10m20s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 10m30s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 10m40s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Still destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-...inerService/managedClusters/swathi1179, 10m50s elapsed]
+azurerm_kubernetes_cluster.aks_cluster: Destruction complete after 10m58s
+azurerm_log_analytics_workspace.insights: Destroying... [id=/subscriptions/71ae4048-2e46-4255-8eca-c47663aa8f0c/resourceGroups/devops-rg/providers/Microsoft.OperationalInsights/workspaces/log-
+swathi1179]
+azurerm_log_analytics_workspace.insights: Destruction complete after 8s
+
+Destroy complete! Resources: 2 destroyed.
+PS D:\tf-asgmt3> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20221213184936
+**********************
