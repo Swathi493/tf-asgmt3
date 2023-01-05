@@ -26,5 +26,5 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'checkov-report.xml'
-    searchFolder: '$(System.DefaultWorkingDirectory)/checkov-report'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
     
