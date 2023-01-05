@@ -21,7 +21,7 @@ steps:
     targetType: 'inline'
     script: |
        mkdir checkov-report
-       checkov -f . --skip-path ./*.json --check MEDIUM --output        junitxml > $(System.DefaultWorkingDirectory)/checkov-report/TEST-checkov-report.xml
+       checkov -f ./modules/main.tf --skip-path ./*.json --check MEDIUM --output        junitxml > $(System.DefaultWorkingDirectory)/checkov-report/TEST-checkov-report.xml
 - task: PublishTestResults@2
   displayName: 'Publish checkov Test Results'
   condition: succeededOrFailed()
