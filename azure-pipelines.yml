@@ -19,4 +19,14 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'checkov -d . --skip-path ./*.json --check MEDIUM --output junitxml > $(System.DefaultWorkingDirectory)/checkov-report.xml'
-
+- task: PublishTestResults@2
+  displayName: 'Publish checkov Test Results'
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFile: 'checkov-report'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    mergeTestResults: false
+    testRuntitle: CheckOV Scan
+    failTaskOnFailedTests: false
+    
