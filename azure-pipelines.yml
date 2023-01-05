@@ -16,12 +16,17 @@ steps:
     targetType: 'inline'
     script: 'pip3 install checkov'
 - task: Bash@3
+  displayName: 'Checkov Static Code Analysis'
   inputs:
     targetType: 'inline'
-    script: 'checkov -d . --skip-path ./*.json --check MEDIUM --output junitxml > $(System.DefaultWorkingDirectory)/checkov-report.xml'
+    script: |
+       mkdir checkov-report
+       checkov -d . --skip-path ./*.json --check MEDIUM --output        junitxml > $(System.DefaultWorkingDirectory)/checkov-report/TEST-checkov-report.xml
 - task: PublishTestResults@2
+  displayName: 'Publish checkov Test Results'
+  condition: succeededOrFailed()
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'checkov-report'
-    testRunTitle: 'checkov-scan'
+    testResultsFiles: '**/TEST-*.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)/checkov-report'
     
