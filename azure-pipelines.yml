@@ -18,5 +18,5 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'checkov'
+    script: 'checkov -d . --skip-path ./*.json --check MEDIUM --output junitxml > $(System.DefaultWorkingDirectory)/checkov-report.xml'
 
