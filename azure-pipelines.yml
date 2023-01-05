@@ -18,5 +18,5 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'checkov -f ./main.tf --check MEDIUM --output        junitxml > $(System.DefaultWorkingDirectory)/TEST-checkov-report.xml'
+    script: 'checkov'
 
