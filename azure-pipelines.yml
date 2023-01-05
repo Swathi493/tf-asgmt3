@@ -19,14 +19,12 @@ steps:
   displayName: 'Checkov Static Code Analysis'
   inputs:
     targetType: 'inline'
-    script: |
-       mkdir checkov-report
-       checkov -f ./modules/main.tf --check LOW --output        junitxml > $(System.DefaultWorkingDirectory)/checkov-report/TEST-checkov-report.xml  
+    script: checkov -f ./modules/main.tf --check LOW --output        junitxml > $(System.DefaultWorkingDirectory)/checkov-report.xml  
 - task: PublishTestResults@2
   displayName: 'Publish checkov Test Results'
   condition: succeededOrFailed()
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: 'checkov-report.xml'
     searchFolder: '$(System.DefaultWorkingDirectory)/checkov-report'
     
